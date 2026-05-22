@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   BRANDS,
-  catalogStats,
   getBrandById,
   getProductsByBrand,
   searchProducts,
@@ -23,7 +23,6 @@ export function CatalogoApp() {
   const [modelFilter, setModelFilter] = useState("all");
   const [consultProduct, setConsultProduct] = useState<Product | null>(null);
 
-  const stats = useMemo(() => catalogStats(), []);
   const brand = brandId ? getBrandById(brandId) : null;
   const searchResults = useMemo(() => searchProducts(search), [search]);
   const brandProducts = useMemo(
@@ -87,6 +86,9 @@ export function CatalogoApp() {
             <button type="button" className="nav-link" onClick={() => scrollTo("marcas")}>
               Marcas
             </button>
+            <Link href="/comerciales" className="nav-link" onClick={() => setMenuOpen(false)}>
+              Comerciales
+            </Link>
             <button type="button" className="nav-link" onClick={() => scrollTo("contacto")}>
               Contacto
             </button>
@@ -137,19 +139,28 @@ export function CatalogoApp() {
               )}
             </div>
 
-            <div className="hero-stats">
-              <div className="stat">
-                <strong>{stats.brands}</strong>
-                <span>Marcas</span>
-              </div>
-              <div className="stat">
-                <strong>{stats.models}</strong>
-                <span>Modelos</span>
-              </div>
-              <div className="stat">
-                <strong>{stats.inStock}</strong>
-                <span>En stock</span>
-              </div>
+            <div className="hero-comerciales-wrap">
+              <Link href="/comerciales" className="hero-comerciales-card">
+                <div className="hero-comerciales-icon" aria-hidden>
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="14" width="28" height="18" rx="3" stroke="currentColor" strokeWidth="2.2" />
+                    <path d="M32 20h8l4 6v6h-12V20z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
+                    <circle cx="14" cy="36" r="4" stroke="currentColor" strokeWidth="2.2" />
+                    <circle cx="36" cy="36" r="4" stroke="currentColor" strokeWidth="2.2" />
+                    <path d="M10 20V10h14v10" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <div className="hero-comerciales-copy">
+                  <span className="hero-comerciales-label">Categoría</span>
+                  <span className="hero-comerciales-title">COMERCIALES</span>
+                  <span className="hero-comerciales-sub">Ver catálogo de vehículos comerciales</span>
+                </div>
+                <span className="hero-comerciales-arrow" aria-hidden>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </Link>
             </div>
           </div>
         </section>
